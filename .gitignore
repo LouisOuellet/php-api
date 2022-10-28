@@ -6,6 +6,7 @@ settings.json
 *settings.json
 /vendor/
 /tmp/
+/inc/config.php
 example.php
 
 # Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
