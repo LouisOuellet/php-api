@@ -56,10 +56,13 @@ Let's start with the skeleton of your API project directory.
 * Model/UserModel.php: the User model file which implements the necessary methods to interact with the users table in the MySQL database.
 
 ### Models
-Model files implements the necessary methods to interact with a table in the MySQL database.
+Model files implements the necessary methods to interact with a table in the MySQL database. These model files needs to extend the Database class in order to access the database.
+
+#### Naming convention
+The name of your model file should start with a capital character and be followed by ```Model.php```.  If not, the bootstrap will not load it.
+The class name in your Model files should match the name of the model file.
 
 #### Example
-
 ```php
 
 //Import Database class into the global namespace
@@ -73,10 +76,13 @@ class UserModel extends Database {
 ```
 
 ### Controllers
-Controller files holds the necessary application code to entertain REST API calls. Mainly the methods that can be called.
+Controller files holds the necessary application code to entertain REST API calls. Mainly the methods that can be called. These controller files needs to extend the BaseController class in order to access the basic methods.
+
+#### Naming convention
+The name of your controller file should start with a capital character and be followed by ```Controller.php```.  If not, the bootstrap will not load it.
+The class name in your Model files should match the name of the model file.
 
 #### Example
-
 ```php
 
 //Import BaseController class into the global namespace
@@ -120,7 +126,7 @@ class UserController extends BaseController {
 ```
 
 ### Configurations
-The config file holds the configuration information of our API. Mainly, it will hold the database credentials. But you could use it to store other configurations.
+The config file holds the configuration information of our API. Mainly, it will hold the database credentials. But you could use it to store other configurations. The configuration file must be stored in config/config.php. As this file is already being loaded in the bootstrap.
 
 #### Example
 
@@ -132,7 +138,7 @@ define("DB_DATABASE_NAME", "demo");
 ```
 
 ### API
-The api file is the entry-point of our application. It will initiate the controller being called in our application.
+The api file is the entry-point of our application. It will initiate the controller being called in our application. The file itself can be named any way you want. As long as you point your API calls to it. In our example we use api.php. This name is useful because it allows you to build a front-end using the index.php file and it also makes it obvious as the URL of your API.
 
 #### Example
 
