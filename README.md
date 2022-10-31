@@ -48,7 +48,7 @@ Let's start with the skeleton of your API project directory.
     └── UserModel.php
 ```
 
-* api.php: The api fil is the entry-point of our application. It will initiate the controller being called in our application.
+* api.php: The api fileis the entry-point of our application. It will initiate the controller being called in our application.
 * config/config.php: The config file holds the configuration information of our API. Mainly, it will hold the database credentials. But you could use it to store other configurations.
 * Controller/: This directory will contain all of your controllers.
 * Controller/UserController.php: the User controller file which holds the necessary application code to entertain REST API calls. Mainly the methods that can be called.
