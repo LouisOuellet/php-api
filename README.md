@@ -48,8 +48,6 @@ Let's start with the skeleton of your API project directory.
     └── UserModel.php
 ```
 
-Let’s try to understand the project structure.
-
 * api.php: The api fil is the entry-point of our application. It will act as a front-controller of our application.
 * config/config.php: The config file holds the configuration information of our API. Mainly, it will hold the database credentials. But you could use it to store other configurations.
 * Controller/: This directory will contain all of your controllers.
