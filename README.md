@@ -149,3 +149,43 @@ require 'vendor/autoload.php';
 
 new phpAPI();
 ```
+
+### Calling the API
+Once you have setup your first controller and model, you can start calling your api.
+
+#### Example
+
+##### GET
+```sh
+http://localhost/api.php/user/list
+```
+
+##### Output
+```json
+[
+  {
+    "id": 1,
+    "username": "user1",
+    "email": "user1@domain.com",
+    "status": 0
+  },
+  {
+    "id": 2,
+    "username": "user2",
+    "email": "user2@domain.com",
+    "status": 1
+  },
+  {
+    "id": 3,
+    "username": "user3",
+    "email": "user3@domain.com",
+    "status": 1
+  },
+  {
+    "id": 4,
+    "username": "user4",
+    "email": "user4@domain.com",
+    "status": 0
+  }
+]
+```
