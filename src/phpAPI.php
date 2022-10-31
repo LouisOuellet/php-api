@@ -1,9 +1,9 @@
 <?php
 
 //Declaring namespace
-namespace LaswitchTech\API;
+namespace LaswitchTech\phpAPI;
 
-class API {
+class phpAPI {
 
   protected $URI;
 

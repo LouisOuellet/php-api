@@ -1,7 +1,7 @@
 <?php
 
 //Declaring namespace
-namespace LaswitchTech\API;
+namespace LaswitchTech\phpAPI;
 
 //Import mysqli class into the global namespace
 use \mysqli;
