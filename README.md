@@ -161,7 +161,7 @@ Once you have setup your first controller and model, you can start calling your 
 
 ##### GET
 ```sh
-http://localhost/api.php/user/list
+http://localhost/api.php/user/list?limit=20
 ```
 
 ##### Output
