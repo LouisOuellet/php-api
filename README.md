@@ -79,8 +79,9 @@ class UserModel extends Database {
 Controller files holds the necessary application code to entertain REST API calls. Mainly the methods that can be called. These controller files needs to extend the BaseController class in order to access the basic methods.
 
 #### Naming convention
-The name of your controller file should start with a capital character and be followed by ```Controller.php```.  If not, the bootstrap will not load it.
-The class name in your Model files should match the name of the model file.
+The name of your controller file should start with a capital character and be followed by ```Controller.php```.  If not, the bootstrap will not load it. The class name in your Model files should match the name of the model file.
+
+Finally, callable methods need to end with ```Action```.
 
 #### Example
 ```php
