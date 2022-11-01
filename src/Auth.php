@@ -11,7 +11,7 @@ class Auth {
   public function __construct(){
     if(AUTH_STATUS){
       if(!defined('AUTH_TYPE')){
-        $this->sendOutput('Unknown Authentication Type', array('HTTP/1.1 500 Internal Server Error'));
+        $this->sendOutput('No Authentication Type', array('HTTP/1.1 500 Internal Server Error'));
       } else {
         switch(AUTH_TYPE){
           case"BASIC":

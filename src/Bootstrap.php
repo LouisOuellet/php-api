@@ -6,7 +6,6 @@ use Composer\Factory;
 //Defining ROOT_PATH
 define("ROOT_PATH", dirname(\Composer\Factory::getComposerFile()));
 
-
 // Include main configuration file
 if(is_file(ROOT_PATH . "/config/config.php")){
   require_once ROOT_PATH . "/config/config.php";
