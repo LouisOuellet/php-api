@@ -1,7 +1,9 @@
 <?php
 
-//Import Factory class into the global namespace
+//Import Factory, Auth and Database classes into the global namespace
 use Composer\Factory;
+use LaswitchTech\phpDB\Database;
+use LaswitchTech\phpAUTH\Auth;
 
 //Defining ROOT_PATH
 define("ROOT_PATH", dirname(\Composer\Factory::getComposerFile()));
@@ -18,15 +20,6 @@ if(is_file(ROOT_PATH . "/config/config.php")){
 
 // Include the Base Controller file
 require_once __DIR__ . "/BaseController.php";
-
-// Include the Database Model file
-require_once __DIR__ . "/Database.php";
-
-//Defining AUTH default Configuration
-if(!defined('AUTH_STATUS')){ define('AUTH_STATUS', false); }
-
-// Include the Auth file
-require_once __DIR__ . "/Auth.php";
 
 // Include all model files
 foreach(scandir(ROOT_PATH . "/Model/") as $model){

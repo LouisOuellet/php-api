@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bad5bfb39217f90f5398091ea431feae",
+    "content-hash": "c2b00722ec104396d238ee1b995306b6",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -703,6 +703,87 @@
                 "source": "https://github.com/justinrainbow/json-schema/tree/5.2.12"
             },
             "time": "2022-04-13T08:02:27+00:00"
+        },
+        {
+            "name": "laswitchtech/php-auth",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LouisOuellet/php-auth.git",
+                "reference": "36bc20b1a234b6fd1bb5c9135061ec6e4f45d1d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/36bc20b1a234b6fd1bb5c9135061ec6e4f45d1d7",
+                "reference": "36bc20b1a234b6fd1bb5c9135061ec6e4f45d1d7",
+                "shasum": ""
+            },
+            "require": {
+                "laswitchtech/php-database": "^1.1",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LaswitchTech\\phpAUTH\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Louis Ouellet",
+                    "email": "louis_ouellet@hotmail.com"
+                }
+            ],
+            "description": "Auth Class for PHP",
+            "support": {
+                "issues": "https://github.com/LouisOuellet/php-auth/issues",
+                "source": "https://github.com/LouisOuellet/php-auth/tree/v1.1"
+            },
+            "time": "2022-11-01T13:47:52+00:00"
+        },
+        {
+            "name": "laswitchtech/php-database",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LouisOuellet/php-database.git",
+                "reference": "9f17af414f04352828ff4926a0f10a44d72f47ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LouisOuellet/php-database/zipball/9f17af414f04352828ff4926a0f10a44d72f47ce",
+                "reference": "9f17af414f04352828ff4926a0f10a44d72f47ce",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LaswitchTech\\phpDB\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Louis Ouellet",
+                    "email": "louis_ouellet@hotmail.com"
+                }
+            ],
+            "description": "Database Class for PHP",
+            "support": {
+                "issues": "https://github.com/LouisOuellet/php-database/issues",
+                "source": "https://github.com/LouisOuellet/php-database/tree/v1.1"
+            },
+            "time": "2022-11-01T13:40:14+00:00"
         },
         {
             "name": "psr/container",
