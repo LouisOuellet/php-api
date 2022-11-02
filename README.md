@@ -65,10 +65,10 @@ The class name in your Model files should match the name of the model file.
 #### Example
 ```php
 
-//Import Database class into the global namespace
-use LaswitchTech\phpAPI\Database;
+//Import BaseModel class into the global namespace
+use LaswitchTech\phpAPI\BaseModel;
 
-class UserModel extends Database {
+class UserModel extends BaseModel {
   public function getUsers($limit) {
     return $this->select("SELECT * FROM users ORDER BY id ASC LIMIT ?", ["i", $limit]);
   }
