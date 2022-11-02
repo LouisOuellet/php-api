@@ -18,9 +18,6 @@ if(is_file(ROOT_PATH . "/config/config.php")){
   exit;
 }
 
-// Include the Base Controller file
-require_once __DIR__ . "/BaseController.php";
-
 // Include all model files
 foreach(scandir(ROOT_PATH . "/Model/") as $model){
   if(str_contains($model, 'Model.php')){
