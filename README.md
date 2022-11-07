@@ -22,6 +22,118 @@ This software is distributed under the [GNU General Public License v3.0](https:/
 
 ## Requirements
 PHP >= 8.0
+* MySQL or MariaDB
+
+### SQL Requirements
+To support authentication in your application, you will need at least one table called users. Since phpAUTH is packed with phpDB, you can create the table like this:
+```php
+
+//Import Database class into the global namespace
+//These must be at the top of your script, not inside a function
+use LaswitchTech\phpDB\Database;
+
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+
+//Initiate Database
+$phpDB = new Database("localhost","demo","demo","demo");
+
+//Create the users table
+$phpDB->create('users',[
+  'id' => [
+    'type' => 'BIGINT(10)',
+    'extra' => ['UNSIGNED','AUTO_INCREMENT','PRIMARY KEY']
+  ],
+  'username' => [
+    'type' => 'VARCHAR(60)',
+    'extra' => ['NOT NULL','UNIQUE']
+  ],
+  'password' => [
+    'type' => 'VARCHAR(100)',
+    'extra' => ['NOT NULL']
+  ],
+  'token' => [
+    'type' => 'VARCHAR(100)',
+    'extra' => ['NOT NULL','UNIQUE']
+  ]
+]);
+
+//Optionally you may want to add a type column if you want to support multiple Authentication Back-Ends like LDAP, SMTP, IMAP, etc.
+$phpDB->alter('users',[
+  'type' => [
+    'action' => 'ADD',
+    'type' => 'VARCHAR(10)',
+    'extra' => ['NOT NULL','DEFAULT "SQL"']
+  ]
+]);
+
+//Other Suggestions
+$phpDB->alter('users',[
+  'created' => [
+    'action' => 'ADD',
+    'type' => 'DATETIME',
+    'extra' => ['DEFAULT CURRENT_TIMESTAMP']
+  ],
+  'modified' => [
+    'action' => 'ADD',
+    'type' => 'DATETIME',
+    'extra' => ['DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP']
+  ]
+]);
+
+//If you enable Roles, you will need a roles table and a roles column to your users table.
+$phpDB->create('roles',[
+  'id' => [
+    'type' => 'BIGINT(10)',
+    'extra' => ['UNSIGNED','AUTO_INCREMENT','PRIMARY KEY']
+  ],
+  'name' => [
+    'type' => 'VARCHAR(60)',
+    'extra' => ['NOT NULL','UNIQUE']
+  ],
+  'permissions' => [
+    'type' => 'LONGTEXT',
+    'extra' => ['NULL']
+  ],
+  'members' => [
+    'type' => 'LONGTEXT',
+    'extra' => ['NULL']
+  ]
+]);
+
+//Optionally you may want to add a roles column if you want to quickly list roles memberships.
+
+$phpDB->alter('users',[
+  'roles' => [
+    'action' => 'ADD',
+    'type' => 'LONGTEXT',
+    'extra' => ['NULL']
+  ]
+]);
+
+//Other Suggestions
+$phpDB->alter('roles',[
+  'created' => [
+    'action' => 'ADD',
+    'type' => 'DATETIME',
+    'extra' => ['DEFAULT CURRENT_TIMESTAMP']
+  ],
+  'modified' => [
+    'action' => 'ADD',
+    'type' => 'DATETIME',
+    'extra' => ['DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP']
+  ]
+]);
+
+//Create user
+$UserID = $phpDB->insert("INSERT INTO users (username, password, token) VALUES (?,?,?)", ["user1",password_hash("pass1", PASSWORD_DEFAULT),hash("sha256", "pass1", false)]);
+
+//Create role
+$RoleID = $phpDB->insert("INSERT INTO roles (name, permissions, members) VALUES (?,?,?)", ["users",json_encode(["users/list" => 1],JSON_UNESCAPED_SLASHES),json_encode([["users" => $UserID]],JSON_UNESCAPED_SLASHES)]);
+
+//Update user
+$phpDB->update("UPDATE users SET roles = ? WHERE id = ?", [json_encode([["roles" => $RoleID]],JSON_UNESCAPED_SLASHES),$UserID]);
+```
 
 ## Security
 Please disclose any vulnerabilities found responsibly – report security issues to the maintainers privately.
@@ -89,9 +201,14 @@ Finally, callable methods need to end with ```Action```.
 //Import BaseController class into the global namespace
 use LaswitchTech\phpAPI\BaseController;
 
+//Import Auth class into the global namespace
+use LaswitchTech\phpAUTH\Auth;
+
 class UserController extends BaseController {
 
   public function listAction() {
+    $Auth = new Auth();
+    $Auth->isAuthorized("users/list");
     $strErrorDesc = '';
     $requestMethod = $_SERVER["REQUEST_METHOD"];
     $arrQueryStringParams = $this->getQueryStringParams();
@@ -132,6 +249,14 @@ The config file holds the configuration information of our API. Mainly, it will 
 #### Example
 
 ```php
+// Auth Configuration Information
+define("AUTH_F_TYPE", "BEARER");
+define("AUTH_B_TYPE", "SQL");
+define("AUTH_ROLES", true);
+define("AUTH_GROUPS", false);
+define("AUTH_RETURN", "HEADER");
+
+//MySQL Configuration Information
 define("DB_HOST", "localhost");
 define("DB_USERNAME", "demo");
 define("DB_PASSWORD", "demo");
@@ -162,7 +287,10 @@ Once you have setup your first controller and model, you can start calling your 
 
 ##### GET
 ```sh
-http://localhost/api.php/user/list?limit=20
+GET /api.php/user/list?limit=2 HTTP/1.1
+Authorization: Bearer cGFzczE=
+Host: phpapi.local
+User-Agent: HTTPie
 ```
 
 ##### Output

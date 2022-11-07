@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2b00722ec104396d238ee1b995306b6",
+    "content-hash": "ae9f5965c6ad44fef16c3d244901173f",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -338,16 +338,16 @@
         },
         {
             "name": "composer/pcre",
-            "version": "3.0.0",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/pcre.git",
-                "reference": "e300eb6c535192decd27a85bc72a9290f0d6b3bd"
+                "reference": "4482b6409ca6bfc2af043a5711cd21ac3e7a8dfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/pcre/zipball/e300eb6c535192decd27a85bc72a9290f0d6b3bd",
-                "reference": "e300eb6c535192decd27a85bc72a9290f0d6b3bd",
+                "url": "https://api.github.com/repos/composer/pcre/zipball/4482b6409ca6bfc2af043a5711cd21ac3e7a8dfb",
+                "reference": "4482b6409ca6bfc2af043a5711cd21ac3e7a8dfb",
                 "shasum": ""
             },
             "require": {
@@ -389,7 +389,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/pcre/issues",
-                "source": "https://github.com/composer/pcre/tree/3.0.0"
+                "source": "https://github.com/composer/pcre/tree/3.0.2"
             },
             "funding": [
                 {
@@ -405,7 +405,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-25T20:21:48+00:00"
+            "time": "2022-11-03T20:24:16+00:00"
         },
         {
             "name": "composer/semver",
@@ -706,21 +706,21 @@
         },
         {
             "name": "laswitchtech/php-auth",
-            "version": "v1.1",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LouisOuellet/php-auth.git",
-                "reference": "36bc20b1a234b6fd1bb5c9135061ec6e4f45d1d7"
+                "reference": "338bb8b5083fe5d9e87dc9f94c4424bc1b087ea1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/36bc20b1a234b6fd1bb5c9135061ec6e4f45d1d7",
-                "reference": "36bc20b1a234b6fd1bb5c9135061ec6e4f45d1d7",
+                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/338bb8b5083fe5d9e87dc9f94c4424bc1b087ea1",
+                "reference": "338bb8b5083fe5d9e87dc9f94c4424bc1b087ea1",
                 "shasum": ""
             },
             "require": {
-                "laswitchtech/php-database": "^1.1",
-                "php": ">=5.5.0"
+                "laswitchtech/php-database": "^2.1",
+                "php": "^8.0"
             },
             "type": "library",
             "autoload": {
@@ -741,22 +741,22 @@
             "description": "Auth Class for PHP",
             "support": {
                 "issues": "https://github.com/LouisOuellet/php-auth/issues",
-                "source": "https://github.com/LouisOuellet/php-auth/tree/v1.1"
+                "source": "https://github.com/LouisOuellet/php-auth/tree/v1.4.0"
             },
-            "time": "2022-11-01T13:47:52+00:00"
+            "time": "2022-11-07T13:18:37+00:00"
         },
         {
             "name": "laswitchtech/php-database",
-            "version": "v1.1",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LouisOuellet/php-database.git",
-                "reference": "9f17af414f04352828ff4926a0f10a44d72f47ce"
+                "reference": "8c7daa9eab30c74941e5dff1024bb32dc5324c9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LouisOuellet/php-database/zipball/9f17af414f04352828ff4926a0f10a44d72f47ce",
-                "reference": "9f17af414f04352828ff4926a0f10a44d72f47ce",
+                "url": "https://api.github.com/repos/LouisOuellet/php-database/zipball/8c7daa9eab30c74941e5dff1024bb32dc5324c9b",
+                "reference": "8c7daa9eab30c74941e5dff1024bb32dc5324c9b",
                 "shasum": ""
             },
             "require": {
@@ -781,9 +781,9 @@
             "description": "Database Class for PHP",
             "support": {
                 "issues": "https://github.com/LouisOuellet/php-database/issues",
-                "source": "https://github.com/LouisOuellet/php-database/tree/v1.1"
+                "source": "https://github.com/LouisOuellet/php-database/tree/v2.1.1"
             },
-            "time": "2022-11-01T13:40:14+00:00"
+            "time": "2022-11-02T21:53:57+00:00"
         },
         {
             "name": "psr/container",
@@ -2084,7 +2084,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.0"
+        "php": "^8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
