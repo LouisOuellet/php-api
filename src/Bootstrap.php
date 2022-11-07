@@ -19,8 +19,10 @@ if(is_file(ROOT_PATH . "/config/config.php")){
 }
 
 // Include all model files
-foreach(scandir(ROOT_PATH . "/Model/") as $model){
-  if(str_contains($model, 'Model.php')){
-    require_once ROOT_PATH . "/Model/" . $model;
+if(is_dir(ROOT_PATH . "/Model")){
+  foreach(scandir(ROOT_PATH . "/Model/") as $model){
+    if(str_contains($model, 'Model.php')){
+      require_once ROOT_PATH . "/Model/" . $model;
+    }
   }
 }
