@@ -6,8 +6,6 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/LouisOuellet/php-api?style=for-the-badge)
 ![Version](https://img.shields.io/github/v/release/LouisOuellet/php-api?label=Version&style=for-the-badge)
 
-phpAPI is an easy to use REST API for php applications
-
 ## Features
  - REST API
 
@@ -21,7 +19,7 @@ Sure!
 This software is distributed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) license. Please read [LICENSE](LICENSE) for information on the software availability and distribution.
 
 ## Requirements
-PHP >= 8.0
+* PHP >= 8.0
 * MySQL or MariaDB
 
 ### SQL Requirements
