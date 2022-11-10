@@ -320,3 +320,23 @@ User-Agent: HTTPie
   }
 ]
 ```
+
+### JavaScript Implementation
+phpAPI comes packed with a JavaScript implementation. The class is available in /vendor/laswitchtech/php-api/dist/js/phpAPI.js.
+
+#### Example
+```html
+<!doctype html>
+<html>
+  <body>
+    <div></div>
+    <script src="/vendor/components/jquery/jquery.min.js"></script>
+    <script src="/vendor/laswitchtech/php-api/dist/js/phpAPI.js"></script>
+    <script>
+      const API = new phpAPI()
+      API.setAuth("BEARER","pass1")
+      API.get("user/list",{success:function(result,status,xhr){ $('div').html(JSON.stringify(result)); }})
+    </script>
+  </body>
+</html>
+```

@@ -13,7 +13,8 @@
     "require": {
         "php": "^8.0",
         "composer/composer": "^2.4",
-        "laswitchtech/php-auth": "^1.4"
+        "laswitchtech/php-auth": "^1.4",
+        "components/jquery": "^3.6"
     },
     "autoload": {
         "psr-4": {
