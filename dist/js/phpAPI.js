@@ -80,10 +80,8 @@ class phpAPI {
       if(typeof data.beforeSend === 'undefined' && typeof data.complete === 'undefined' && typeof data.error === 'undefined' && typeof data.success === 'undefined'){
         configurations.data = {};
         for(const [key, value] of Object.entries(data)){
-          configurations.data[key] = btoa(encodeURI(value))
-          // configurations.data[key] = encodeURI(btoa(value))
+          configurations.data[key] = encodeURI(btoa(value))
         }
-        console.log(configurations.data)
       } else { config = data; }
     }
     configurations.type = "POST"
