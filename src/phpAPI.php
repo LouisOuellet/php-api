@@ -14,7 +14,7 @@ class phpAPI {
   protected $Path;
   protected $Settings;
   protected $Manifest;
-  protected $DBDebug = false;
+  protected $Debug = false;
 
   public function __construct() {
 
@@ -83,7 +83,7 @@ class phpAPI {
 
       // MySQL Debug
       if(isset($this->Manifest['sql']['debug'])){
-        $this->DBDebug = $this->Manifest['sql']['debug'];
+        $this->Debug = $this->Manifest['sql']['debug'];
       }
 
       // Auth Configuration Information
@@ -124,7 +124,7 @@ class phpAPI {
 
       // MySQL Debug
       if(isset($this->Settings['sql']['debug'])){
-        $this->DBDebug = $this->Settings['sql']['debug'];
+        $this->Debug = $this->Settings['sql']['debug'];
       }
     } else {
 
@@ -135,6 +135,6 @@ class phpAPI {
     }
 
     // MySQL Debug
-    define("DB_DEBUG", $this->DBDebug);
+    define("DB_DEBUG", $this->Debug);
   }
 }
