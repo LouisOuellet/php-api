@@ -18,6 +18,9 @@ class phpAPI {
 
   public function __construct() {
 
+    // Configure API
+    $this->configure();
+
     // Include all model files
     if(is_dir($this->Path . "/Model")){
       foreach(scandir($this->Path . "/Model/") as $model){
