@@ -78,7 +78,10 @@ class phpAPI {
     if(url != null && typeof url === 'string'){ configurations.url = configurations.url+'/'+url; }
     if(data != null && typeof data === 'object'){
       if(typeof data.beforeSend === 'undefined' && typeof data.complete === 'undefined' && typeof data.error === 'undefined' && typeof data.success === 'undefined'){
-        configurations.data = JSON.stringify(data);
+        configurations.data = {};
+        for(const [key, value] of Object.entries(data)){
+          configurations.data[key] = encodeURI(btoa(value))
+        }
       } else { config = data; }
     }
     configurations.type = "POST"

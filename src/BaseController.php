@@ -20,6 +20,14 @@ class BaseController {
     return $query;
   }
 
+  protected function getQueryStringBody() {
+    $query = [];
+    foreach($_POST as $key => $value){
+      $query[$key] = base64_decode(urldecode($value))
+    }
+    return $query;
+  }
+
   protected function sendOutput($data, $httpHeaders=array()) {
     header_remove('Set-Cookie');
     if (is_array($httpHeaders) && count($httpHeaders)) {
