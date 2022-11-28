@@ -97,8 +97,8 @@ class phpAPI {
       } else {
         define("AUTH_GROUPS", false);
       }
-      if(isset($this->Manifest['auth']['type'])){
-        define("AUTH_F_TYPE", $this->Manifest['auth']['type']);
+      if(isset($this->Manifest['auth']['type']['api'])){
+        define("AUTH_F_TYPE", $this->Manifest['auth']['type']['api']);
       } else {
         define("AUTH_F_TYPE", "BEARER");
       }
