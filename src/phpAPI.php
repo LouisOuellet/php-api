@@ -70,11 +70,6 @@ class phpAPI {
     $this->Path = dirname(\Composer\Factory::getComposerFile());
     define("ROOT_PATH", $this->Path);
 
-    // Main Auth Configuration Information
-    define("AUTH_B_TYPE", "SQL");
-    define("AUTH_RETURN", "HEADER");
-    define("AUTH_OUTPUT_TYPE", "HEADER");
-
     // Include manifest configuration file
     if(is_file($this->Path . "/src/manifest.json")){
 
