@@ -3,7 +3,16 @@
 //Declaring namespace
 namespace LaswitchTech\phpAPI;
 
+//Import Factory class into the global namespace
+use Composer\Factory;
+
 class BaseController {
+
+  protected $Path = null;
+
+  public function __construct(){
+    $this->Path = dirname(\Composer\Factory::getComposerFile());
+  }
 
   public function __call($name, $arguments) {
     $this->sendOutput('', array('HTTP/1.1 404 Not Found'));
