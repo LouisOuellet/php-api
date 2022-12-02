@@ -49,15 +49,28 @@ class phpAPI {
       } else {
 
         // Could not find Controller
-        header("HTTP/1.1 404 Not Found");
-        exit();
+        $this->sendOutput('Could not find Controller', array('HTTP/1.1 404 Not Found'));
       }
     } else {
 
       // Could not identify the Controller and/or Method
-      header("HTTP/1.1 404 Not Found");
-      exit();
+      $this->sendOutput('Could not identify the Controller and/or Method', array('HTTP/1.1 422 Unprocessable Entity'));
     }
+  }
+
+  public function __call($name, $arguments) {
+    $this->sendOutput($name, array('HTTP/1.1 501 Not Implemented'));
+  }
+
+  protected function sendOutput($data, $httpHeaders=array()) {
+    header_remove('Set-Cookie');
+    if (is_array($httpHeaders) && count($httpHeaders)) {
+      foreach ($httpHeaders as $httpHeader) {
+        header($httpHeader);
+      }
+    }
+    echo $data;
+    exit;
   }
 
   public function getPath(){
@@ -124,9 +137,7 @@ class phpAPI {
     } else {
 
       // Could not find settings
-      header_remove('Set-Cookie');
-      header('HTTP/1.1 500 Internal Server Error');
-      exit;
+      $this->sendOutput('Could not find settings', array('HTTP/1.1 422 Unprocessable Entity'));
     }
 
     // MySQL Debug

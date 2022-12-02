@@ -15,7 +15,7 @@ class BaseController {
   }
 
   public function __call($name, $arguments) {
-    $this->sendOutput('', array('HTTP/1.1 404 Not Found'));
+    $this->sendOutput(str_replace('Action','',$name), array('HTTP/1.1 501 Not Implemented'));
   }
 
   protected function getUriSegments() {
