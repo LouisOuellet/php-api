@@ -15,6 +15,22 @@ class phpAPI {
     }
   }
 
+  setDefaults(callbacks){
+    const self = this
+    for(const [name, callback] of Object.entries(callbacks)){
+      switch(name){
+        case"beforeSend":
+        case"complete":
+        case"error":
+        case"success":
+          if(typeof callback === 'function' && typeof self.#configurations[name] !== 'undefined'){
+            self.#configurations[name] = callback
+          }
+          break
+      }
+    }
+  }
+
   setAuth(type = null, username = null, password = null){
     const self = this
     if(type != null && typeof type === 'string'){
