@@ -3,10 +3,11 @@
 //Declaring namespace
 namespace LaswitchTech\phpAPI;
 
-//Import Factory, Auth and Database classes into the global namespace
+//Import Factory, Auth, phpSMTP and Database classes into the global namespace
 use Composer\Factory;
 use LaswitchTech\phpDB\Database;
 use LaswitchTech\phpAUTH\Auth;
+use LaswitchTech\SMTP\phpSMTP;
 
 class phpAPI {
 
@@ -125,14 +126,25 @@ class phpAPI {
     	$this->Settings = json_decode(file_get_contents($this->Path . '/config/config.json'),true);
 
       //MySQL Configuration Information
-      define("DB_HOST", $this->Settings['sql']['host']);
-      define("DB_USERNAME", $this->Settings['sql']['username']);
-      define("DB_PASSWORD", $this->Settings['sql']['password']);
-      define("DB_DATABASE_NAME", $this->Settings['sql']['database']);
+      if(isset($this->Settings['sql'])){
+        define("DB_HOST", $this->Settings['sql']['host']);
+        define("DB_USERNAME", $this->Settings['sql']['username']);
+        define("DB_PASSWORD", $this->Settings['sql']['password']);
+        define("DB_DATABASE_NAME", $this->Settings['sql']['database']);
 
-      // MySQL Debug
-      if(isset($this->Settings['sql']['debug'])){
-        $this->Debug = $this->Settings['sql']['debug'];
+        // MySQL Debug
+        if(isset($this->Settings['sql']['debug'])){
+          $this->Debug = $this->Settings['sql']['debug'];
+        }
+      }
+
+      //SMTP Configuration Information
+      if(isset($this->Settings['smtp'])){
+        define("SMTP_HOST", $this->Settings['smtp']['host']);
+        define("SMTP_PORT", $this->Settings['smtp']['port']);
+        define("SMTP_ENCRYPTION", $this->Settings['smtp']['encryption']);
+        define("SMTP_USERNAME", $this->Settings['smtp']['username']);
+        define("SMTP_PASSWORD", $this->Settings['smtp']['password']);
       }
     } else {
 

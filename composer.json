@@ -14,7 +14,8 @@
         "php": "^8.0",
         "composer/composer": "^2.4",
         "laswitchtech/php-auth": "^1.5",
-        "components/jquery": "^3.6"
+        "components/jquery": "^3.6",
+        "laswitchtech/php-smtp": "^1.0"
     },
     "autoload": {
         "psr-4": {
