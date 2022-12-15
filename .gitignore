@@ -7,7 +7,6 @@ composer.phar
 /config/
 /Controller/
 /Model/
-api.php
 index.php
 /src/manifest.json
 *.log
