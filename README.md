@@ -151,15 +151,15 @@ Let's start with the skeleton of your API project directory.
 ```sh
 ├── api.php
 ├── config
-│   └── config.php
+│   └── config.json
 ├── Controller
 │   └── UserController.php
 └── Model
     └── UserModel.php
 ```
 
-* api.php: The api fileis the entry-point of our application. It will initiate the controller being called in our application.
-* config/config.php: The config file holds the configuration information of our API. Mainly, it will hold the database credentials. But you could use it to store other configurations.
+* api.php: The api file is the entry-point of our application. It will initiate the controller being called in our application.
+* config/config.json: The config file holds the configuration information of our API. Mainly, it will hold the database credentials. But you could use it to store other configurations.
 * Controller/: This directory will contain all of your controllers.
 * Controller/UserController.php: the User controller file which holds the necessary application code to entertain REST API calls. Mainly the methods that can be called.
 * Model/: This directory will contain all of your models.
@@ -189,7 +189,7 @@ class UserModel extends BaseModel {
 Controller files holds the necessary application code to entertain REST API calls. Mainly the methods that can be called. These controller files needs to extend the BaseController class in order to access the basic methods.
 
 #### Naming convention
-The name of your controller file should start with a capital character and be followed by ```Controller.php```.  If not, the bootstrap will not load it. The class name in your Model files should match the name of the model file.
+The name of your controller file should start with a capital character and be followed by ```Controller.php```.  If not, the bootstrap will not load it. The class name in your Controller files should match the name of the controller file.
 
 Finally, callable methods need to end with ```Action```.
 
@@ -246,19 +246,15 @@ The config file holds the configuration information of our API. Mainly, it will 
 
 #### Example
 
-```php
-// Auth Configuration Information
-define("AUTH_F_TYPE", "BEARER");
-define("AUTH_B_TYPE", "SQL");
-define("AUTH_ROLES", true);
-define("AUTH_GROUPS", false);
-define("AUTH_RETURN", "HEADER");
-
-//MySQL Configuration Information
-define("DB_HOST", "localhost");
-define("DB_USERNAME", "demo");
-define("DB_PASSWORD", "demo");
-define("DB_DATABASE_NAME", "demo");
+```json
+{
+    "sql": {
+        "host": "localhost",
+        "database": "demo",
+        "username": "demo",
+        "password": "demo"
+    }
+}
 ```
 
 ### API

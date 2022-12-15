@@ -55,7 +55,7 @@ class phpAPI {
     } else {
 
       // Could not identify the Controller and/or Method
-      $this->sendOutput('Could not identify the Controller and/or Method', array('HTTP/1.1 422 Unprocessable Entity'));
+      $this->sendOutput('Could not identify the Controller and/or Action', array('HTTP/1.1 422 Unprocessable Entity'));
     }
   }
 
