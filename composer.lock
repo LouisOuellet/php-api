@@ -755,16 +755,16 @@
         },
         {
             "name": "laswitchtech/php-auth",
-            "version": "v1.5.26",
+            "version": "v1.5.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LouisOuellet/php-auth.git",
-                "reference": "d96919600e43c6974ce98e241fdf5f64fd5e7adb"
+                "reference": "75fa2e34a151498d8ee8e93a7928f78691c4c768"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/d96919600e43c6974ce98e241fdf5f64fd5e7adb",
-                "reference": "d96919600e43c6974ce98e241fdf5f64fd5e7adb",
+                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/75fa2e34a151498d8ee8e93a7928f78691c4c768",
+                "reference": "75fa2e34a151498d8ee8e93a7928f78691c4c768",
                 "shasum": ""
             },
             "require": {
@@ -791,22 +791,22 @@
             "description": "Auth Class for PHP",
             "support": {
                 "issues": "https://github.com/LouisOuellet/php-auth/issues",
-                "source": "https://github.com/LouisOuellet/php-auth/tree/v1.5.26"
+                "source": "https://github.com/LouisOuellet/php-auth/tree/v1.5.27"
             },
-            "time": "2022-12-16T16:25:59+00:00"
+            "time": "2022-12-16T16:30:20+00:00"
         },
         {
             "name": "laswitchtech/php-database",
-            "version": "v2.1.6",
+            "version": "v2.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LouisOuellet/php-database.git",
-                "reference": "c2aa5bbac0a00b0aa770b74bc5ae1ad6f6d57fd7"
+                "reference": "9f67a64e04be01b9a8bb18ceebfb22f628d09f0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LouisOuellet/php-database/zipball/c2aa5bbac0a00b0aa770b74bc5ae1ad6f6d57fd7",
-                "reference": "c2aa5bbac0a00b0aa770b74bc5ae1ad6f6d57fd7",
+                "url": "https://api.github.com/repos/LouisOuellet/php-database/zipball/9f67a64e04be01b9a8bb18ceebfb22f628d09f0b",
+                "reference": "9f67a64e04be01b9a8bb18ceebfb22f628d09f0b",
                 "shasum": ""
             },
             "require": {
@@ -831,9 +831,9 @@
             "description": "Database Class for PHP",
             "support": {
                 "issues": "https://github.com/LouisOuellet/php-database/issues",
-                "source": "https://github.com/LouisOuellet/php-database/tree/v2.1.6"
+                "source": "https://github.com/LouisOuellet/php-database/tree/v2.1.7"
             },
-            "time": "2022-12-16T16:11:40+00:00"
+            "time": "2022-12-16T16:29:35+00:00"
         },
         {
             "name": "psr/container",
