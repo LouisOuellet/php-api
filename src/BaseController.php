@@ -48,7 +48,7 @@ class BaseController {
     exit;
   }
 
-  protected function set($array = []){
+  protected function configure($array = []){
     try {
       $config = [];
       $this->mkdir('config');
