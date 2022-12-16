@@ -15,7 +15,7 @@ class BaseController {
   }
 
   public function __call($name, $arguments) {
-    $this->sendOutput(str_replace('Action','',$name), array('HTTP/1.1 501 Not Implemented'));
+    $this->output(str_replace('Action','',$name), array('HTTP/1.1 501 Not Implemented'));
   }
 
   protected function getUriSegments() {
@@ -37,7 +37,7 @@ class BaseController {
     return $query;
   }
 
-  protected function sendOutput($data, $httpHeaders=array()) {
+  protected function output($data, $httpHeaders=array()) {
     header_remove('Set-Cookie');
     if (is_array($httpHeaders) && count($httpHeaders)) {
       foreach ($httpHeaders as $httpHeader) {
@@ -46,5 +46,15 @@ class BaseController {
     }
     echo $data;
     exit;
+  }
+
+  protected function mkdir($directory){
+    $make = dirname(__FILE__,3);
+    $directories = explode('/',$directory);
+    foreach($directories as $subdirectory){
+      $make .= '/'.$subdirectory;
+      if(!is_file($make)&&!is_dir($make)){ mkdir($make); }
+    }
+    return $make;
   }
 }
