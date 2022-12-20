@@ -47,43 +47,4 @@ class BaseController {
     echo $data;
     exit;
   }
-
-  protected function configure($array = []){
-    try {
-      $config = [];
-      $this->mkdir('config');
-      if(is_file($this->Path . '/config/config.json')){
-        $config = json_decode(file_get_contents($this->Path . '/config/config.json'),true);
-      }
-      foreach($array as $key => $value){ $config[$key] = $value; }
-      $json = fopen($this->Path . '/config/config.json', 'w');
-      fwrite($json, json_encode($config, JSON_PRETTY_PRINT));
-      fclose($json);
-      return true;
-    } catch(Exception $error){
-      return false;
-    }
-  }
-
-  protected function configurations($key = null){
-    $config = [];
-    if(is_file($this->Path . '/config/config.json')){
-      $config = json_decode(file_get_contents($this->Path . '/config/config.json'),true);
-    }
-    if($key != null){
-      if(isset($config[$key])){ return $config[$key]; }
-      return null;
-    }
-    return $config;
-  }
-
-  protected function mkdir($directory){
-    $make = $this->Path;
-    $directories = explode('/',$directory);
-    foreach($directories as $subdirectory){
-      $make .= '/'.$subdirectory;
-      if(!is_file($make)&&!is_dir($make)){ mkdir($make, 0777, true); }
-    }
-    return $make;
-  }
 }
