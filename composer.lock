@@ -756,16 +756,16 @@
         },
         {
             "name": "laswitchtech/php-auth",
-            "version": "v2.0.3",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LouisOuellet/php-auth.git",
-                "reference": "609de05f945bfad51961c04ac4d260c5fa4ed6cd"
+                "reference": "0ec53e294116421df3681a0c77e143bd55e3d252"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/609de05f945bfad51961c04ac4d260c5fa4ed6cd",
-                "reference": "609de05f945bfad51961c04ac4d260c5fa4ed6cd",
+                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/0ec53e294116421df3681a0c77e143bd55e3d252",
+                "reference": "0ec53e294116421df3681a0c77e143bd55e3d252",
                 "shasum": ""
             },
             "require": {
@@ -792,9 +792,9 @@
             "description": "Auth Class for PHP",
             "support": {
                 "issues": "https://github.com/LouisOuellet/php-auth/issues",
-                "source": "https://github.com/LouisOuellet/php-auth/tree/v2.0.3"
+                "source": "https://github.com/LouisOuellet/php-auth/tree/v2.0.4"
             },
-            "time": "2022-12-21T18:15:19+00:00"
+            "time": "2022-12-21T19:34:45+00:00"
         },
         {
             "name": "laswitchtech/php-database",
