@@ -756,20 +756,21 @@
         },
         {
             "name": "laswitchtech/php-auth",
-            "version": "v2.0.4",
+            "version": "v2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LouisOuellet/php-auth.git",
-                "reference": "0ec53e294116421df3681a0c77e143bd55e3d252"
+                "reference": "663a9e7df29ae0eccd718a2e904cbec501c4abf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/0ec53e294116421df3681a0c77e143bd55e3d252",
-                "reference": "0ec53e294116421df3681a0c77e143bd55e3d252",
+                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/663a9e7df29ae0eccd718a2e904cbec501c4abf9",
+                "reference": "663a9e7df29ae0eccd718a2e904cbec501c4abf9",
                 "shasum": ""
             },
             "require": {
                 "components/jquery": "^3.6",
+                "laswitchtech/php-csrf": "^1.0",
                 "laswitchtech/php-database": "^2.1",
                 "php": "^8.0"
             },
@@ -792,9 +793,46 @@
             "description": "Auth Class for PHP",
             "support": {
                 "issues": "https://github.com/LouisOuellet/php-auth/issues",
-                "source": "https://github.com/LouisOuellet/php-auth/tree/v2.0.4"
+                "source": "https://github.com/LouisOuellet/php-auth/tree/v2.0.5"
             },
-            "time": "2022-12-21T19:34:45+00:00"
+            "time": "2022-12-22T03:32:52+00:00"
+        },
+        {
+            "name": "laswitchtech/php-csrf",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LouisOuellet/php-csrf.git",
+                "reference": "d58f31b5ba5247599f3bfebf0d281ed39052ef48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LouisOuellet/php-csrf/zipball/d58f31b5ba5247599f3bfebf0d281ed39052ef48",
+                "reference": "d58f31b5ba5247599f3bfebf0d281ed39052ef48",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LaswitchTech\\phpCSRF\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Louis Ouellet",
+                    "email": "louis_ouellet@hotmail.com"
+                }
+            ],
+            "description": "CSRF Protection Library for PHP Applications",
+            "support": {
+                "issues": "https://github.com/LouisOuellet/php-csrf/issues",
+                "source": "https://github.com/LouisOuellet/php-csrf/tree/v1.0.2"
+            },
+            "time": "2022-12-22T03:06:36+00:00"
         },
         {
             "name": "laswitchtech/php-database",

@@ -29,7 +29,7 @@ class BaseController {
     return $query;
   }
 
-  protected function getQueryStringBody() {
+  protected function getPostParams() {
     $query = [];
     foreach($_POST as $key => $value){
       $query[$key] = base64_decode(urldecode($value));
