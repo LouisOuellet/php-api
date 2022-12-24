@@ -19,6 +19,10 @@ class phpAPI {
 
   public function __construct() {
 
+    // Set Cookie Scope
+    ini_set('session.cookie_samesite', 'None');
+    session_set_cookie_params(['samesite' => 'None']);
+
     // Configure API
     $this->configure();
 
