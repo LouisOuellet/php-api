@@ -756,16 +756,16 @@
         },
         {
             "name": "laswitchtech/php-auth",
-            "version": "v2.0.11",
+            "version": "v2.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LouisOuellet/php-auth.git",
-                "reference": "73e7a91cee864bf821eb27f939260c6bfb0282b8"
+                "reference": "45fa5cfbae17a59f5253cb7ca68828f7c49ea45a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/73e7a91cee864bf821eb27f939260c6bfb0282b8",
-                "reference": "73e7a91cee864bf821eb27f939260c6bfb0282b8",
+                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/45fa5cfbae17a59f5253cb7ca68828f7c49ea45a",
+                "reference": "45fa5cfbae17a59f5253cb7ca68828f7c49ea45a",
                 "shasum": ""
             },
             "require": {
@@ -793,9 +793,9 @@
             "description": "Auth Class for PHP",
             "support": {
                 "issues": "https://github.com/LouisOuellet/php-auth/issues",
-                "source": "https://github.com/LouisOuellet/php-auth/tree/v2.0.11"
+                "source": "https://github.com/LouisOuellet/php-auth/tree/v2.0.12"
             },
-            "time": "2022-12-29T20:00:24+00:00"
+            "time": "2022-12-29T20:06:37+00:00"
         },
         {
             "name": "laswitchtech/php-csrf",
