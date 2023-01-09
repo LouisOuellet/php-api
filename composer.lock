@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f54b6cd07eab1017bbe14a6cf5863e7",
+    "content-hash": "148e57a3dcddab4a9a85bd055f8cefbe",
     "packages": [
         {
             "name": "components/jquery",
@@ -756,16 +756,16 @@
         },
         {
             "name": "laswitchtech/php-auth",
-            "version": "v2.2.0",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LouisOuellet/php-auth.git",
-                "reference": "0c6bddc07894b93b749e1e4434c92c9492e86aee"
+                "reference": "a120fdbb77b2522f25b822f5aaefcc1a9c593bd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/0c6bddc07894b93b749e1e4434c92c9492e86aee",
-                "reference": "0c6bddc07894b93b749e1e4434c92c9492e86aee",
+                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/a120fdbb77b2522f25b822f5aaefcc1a9c593bd3",
+                "reference": "a120fdbb77b2522f25b822f5aaefcc1a9c593bd3",
                 "shasum": ""
             },
             "require": {
@@ -795,9 +795,9 @@
             "description": "Auth Class for PHP",
             "support": {
                 "issues": "https://github.com/LouisOuellet/php-auth/issues",
-                "source": "https://github.com/LouisOuellet/php-auth/tree/v2.2.0"
+                "source": "https://github.com/LouisOuellet/php-auth/tree/v2.3.0"
             },
-            "time": "2023-01-06T20:59:33+00:00"
+            "time": "2023-01-09T15:55:00+00:00"
         },
         {
             "name": "laswitchtech/php-csrf",
