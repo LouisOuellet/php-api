@@ -5,7 +5,7 @@ class phpAPI {
   constructor(url){
     const self = this
     self.#configurations = {
-      "url": "api.php",
+      "url": "/api.php",
       "dataType": "json",
       "context": self,
       "beforeSend": function(xhr){},
