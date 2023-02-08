@@ -3,8 +3,7 @@
 //Declaring namespace
 namespace LaswitchTech\phpAPI;
 
-//Import Factory, Auth, phpSMTP and Database classes into the global namespace
-use Composer\Factory;
+//Import Auth, phpSMTP and Database classes into the global namespace
 use LaswitchTech\phpDB\Database;
 use LaswitchTech\phpAUTH\Auth;
 use LaswitchTech\SMTP\phpSMTP;
@@ -18,6 +17,10 @@ class phpAPI {
   protected $Debug = false;
 
   public function __construct() {
+
+    // Save Root Path
+    if(!defined("ROOT_PATH")){ define("ROOT_PATH",dirname(__DIR__)); }
+    $this->Path = ROOT_PATH;
 
     // Configure API
     $this->configure();
@@ -79,10 +82,6 @@ class phpAPI {
   }
 
   protected function configure(){
-
-    // Save Root Path
-    $this->Path = dirname(\Composer\Factory::getComposerFile());
-    if(!defined("ROOT_PATH")){ define("ROOT_PATH", $this->Path); }
 
     // Include manifest configuration file
     if(is_file($this->Path . "/src/manifest.json")){

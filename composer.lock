@@ -206,16 +206,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "923278ad13e1621946eb76ab2882655d2cc396a4"
+                "reference": "c76c013c555160410af47c03a0e173518e3f5796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/923278ad13e1621946eb76ab2882655d2cc396a4",
-                "reference": "923278ad13e1621946eb76ab2882655d2cc396a4",
+                "url": "https://api.github.com/repos/composer/composer/zipball/c76c013c555160410af47c03a0e173518e3f5796",
+                "reference": "c76c013c555160410af47c03a0e173518e3f5796",
                 "shasum": ""
             },
             "require": {
@@ -299,7 +299,7 @@
             "support": {
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/composer/issues",
-                "source": "https://github.com/composer/composer/tree/2.5.1"
+                "source": "https://github.com/composer/composer/tree/2.5.2"
             },
             "funding": [
                 {
@@ -315,7 +315,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-22T14:33:54+00:00"
+            "time": "2023-02-04T13:33:22+00:00"
         },
         {
             "name": "composer/metadata-minifier",
@@ -756,16 +756,16 @@
         },
         {
             "name": "laswitchtech/php-auth",
-            "version": "v2.3.9",
+            "version": "v2.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LouisOuellet/php-auth.git",
-                "reference": "c9fc4457bfaa2441fda5bfad18d07c697b98815c"
+                "reference": "8be145a75aedfa52b807e7e74b3cf68d0acf29d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/c9fc4457bfaa2441fda5bfad18d07c697b98815c",
-                "reference": "c9fc4457bfaa2441fda5bfad18d07c697b98815c",
+                "url": "https://api.github.com/repos/LouisOuellet/php-auth/zipball/8be145a75aedfa52b807e7e74b3cf68d0acf29d7",
+                "reference": "8be145a75aedfa52b807e7e74b3cf68d0acf29d7",
                 "shasum": ""
             },
             "require": {
@@ -795,9 +795,9 @@
             "description": "Auth Class for PHP",
             "support": {
                 "issues": "https://github.com/LouisOuellet/php-auth/issues",
-                "source": "https://github.com/LouisOuellet/php-auth/tree/v2.3.9"
+                "source": "https://github.com/LouisOuellet/php-auth/tree/v2.3.11"
             },
-            "time": "2023-01-27T15:31:31+00:00"
+            "time": "2023-02-08T18:22:58+00:00"
         },
         {
             "name": "laswitchtech/php-csrf",
@@ -838,16 +838,16 @@
         },
         {
             "name": "laswitchtech/php-database",
-            "version": "v2.1.12",
+            "version": "v2.1.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LouisOuellet/php-database.git",
-                "reference": "695b78418144c2509d08087c599ef9ddd4ad5f77"
+                "reference": "7f7fd727238eba7d1dcd648c5bf743c165ade96d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LouisOuellet/php-database/zipball/695b78418144c2509d08087c599ef9ddd4ad5f77",
-                "reference": "695b78418144c2509d08087c599ef9ddd4ad5f77",
+                "url": "https://api.github.com/repos/LouisOuellet/php-database/zipball/7f7fd727238eba7d1dcd648c5bf743c165ade96d",
+                "reference": "7f7fd727238eba7d1dcd648c5bf743c165ade96d",
                 "shasum": ""
             },
             "require": {
@@ -872,9 +872,9 @@
             "description": "Database Class for PHP",
             "support": {
                 "issues": "https://github.com/LouisOuellet/php-database/issues",
-                "source": "https://github.com/LouisOuellet/php-database/tree/v2.1.12"
+                "source": "https://github.com/LouisOuellet/php-database/tree/v2.1.14"
             },
-            "time": "2023-01-12T17:41:04+00:00"
+            "time": "2023-02-08T18:21:14+00:00"
         },
         {
             "name": "laswitchtech/php-imap",

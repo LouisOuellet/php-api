@@ -3,15 +3,15 @@
 //Declaring namespace
 namespace LaswitchTech\phpAPI;
 
-//Import Factory class into the global namespace
-use Composer\Factory;
-
 class BaseController {
 
   protected $Path = null;
 
   public function __construct(){
-    $this->Path = dirname(\Composer\Factory::getComposerFile());
+
+    // Save Root Path
+    if(!defined("ROOT_PATH")){ define("ROOT_PATH",dirname(__DIR__)); }
+    $this->Path = ROOT_PATH;
   }
 
   public function __call($name, $arguments) {
@@ -43,6 +43,9 @@ class BaseController {
       foreach ($httpHeaders as $httpHeader) {
         header($httpHeader);
       }
+    }
+    if(is_array($data)){
+      $data = json_encode($data,JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
     echo $data;
     exit;
