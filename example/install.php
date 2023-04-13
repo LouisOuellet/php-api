@@ -67,9 +67,9 @@ $phpAUTH = new phpAUTH();
 $phpAUTH->config("hostnames",$Hostnames)
         ->config("basic",false) // Enable/Disable Basic Authentication
         ->config("bearer",true) // Enable/Disable Bearer Token Authentication
-        ->config("request",true) // Enable/Disable Request Authentication
-        ->config("cookie",true) // Enable/Disable Cookie Authentication
-        ->config("session",true) // Enable/Disable Session Authentication
+        ->config("request",false) // Enable/Disable Request Authentication
+        ->config("cookie",false) // Enable/Disable Cookie Authentication
+        ->config("session",false) // Enable/Disable Session Authentication
         ->config("2fa",false) // Enable/Disable 2-Factor Authentication
         ->config("maxAttempts",5) // Max amount of authentication attempts per windowAttempts
         ->config("maxRequests",1000) // Max amount of API request per windowRequests

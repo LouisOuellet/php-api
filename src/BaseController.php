@@ -51,6 +51,14 @@ class BaseController {
       $this->Namespace .= "/{$Segment}";
     }
 
+    // Debug Information
+    $this->Logger->debug("Namespace: " . $this->Namespace);
+    $this->Logger->debug("Public: " . $this->Public);
+    $this->Logger->debug("Permission: " . $this->Permission);
+    $this->Logger->debug("Level: " . $this->Level);
+    $this->Logger->debug("isAuthenticated: " . $this->Auth->Authentication->isAuthenticated());
+    $this->Logger->debug("hasPermission: " . $this->Auth->Authorization->hasPermission($this->Namespace,$this->Level));
+
     // Check if the controller is public
     if(!$this->Public){
 
@@ -65,7 +73,7 @@ class BaseController {
       if($this->Permission){
 
         // Check if the user has the required permission
-        if(!$this->Auth->Authentication->hasPermission($this->Namespace,$this->Level)){
+        if(!$this->Auth->Authorization->hasPermission($this->Namespace,$this->Level)){
 
           // Send the output
           $this->output('Forbidden', array('HTTP/1.1 403 Forbidden'));

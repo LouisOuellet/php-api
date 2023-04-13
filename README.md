@@ -92,17 +92,21 @@ class UserController extends BaseController {
 
   public function __construct($Auth){
 
+    // Set the controller Authentication Policy
+    $this->Public = true; // Set to false to require authentication
+
+    // Set the controller Authorization Policy
+    $this->Permission = false; // Set to true to require a permission for the namespace used. Ex: namespace>/user/list
+    $this->Level = 1; // Set the permission level required
+
     // Call the parent constructor
     parent::__construct($Auth);
-
-    // Set the controller as private
-    $this->Public = true;
-    $this->Permission = true;
-    $this->Level = 1;
   }
 
   public function listAction() {
     try {
+
+      // Namespace: /user/list
 
       // Check the request method
       if($this->Method !== 'GET'){
@@ -260,9 +264,9 @@ $phpAUTH = new phpAUTH();
 $phpAUTH->config("hostnames",$Hostnames)
         ->config("basic",false) // Enable/Disable Basic Authentication
         ->config("bearer",true) // Enable/Disable Bearer Token Authentication
-        ->config("request",true) // Enable/Disable Request Authentication
-        ->config("cookie",true) // Enable/Disable Cookie Authentication
-        ->config("session",true) // Enable/Disable Session Authentication
+        ->config("request",false) // Enable/Disable Request Authentication
+        ->config("cookie",false) // Enable/Disable Cookie Authentication
+        ->config("session",false) // Enable/Disable Session Authentication
         ->config("2fa",false) // Enable/Disable 2-Factor Authentication
         ->config("maxAttempts",5) // Max amount of authentication attempts per windowAttempts
         ->config("maxRequests",1000) // Max amount of API request per windowRequests

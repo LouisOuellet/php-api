@@ -14,16 +14,13 @@ $Configurator = new phpConfigurator('account');
 $url = $Configurator->get('account','url');
 $token = $Configurator->get('account','token');
 
-// Encode
-$token = base64_encode($token);
-
 // Setup a Bearer cURL
 $cURL = curl_init();
 curl_setopt($cURL, CURLOPT_URL, $url . '/user/list');
 curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($cURL, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($cURL, CURLOPT_SSL_VERIFYHOST, 0);
-curl_setopt($cURL, CURLOPT_HTTPHEADER, ["Authorization: Bearer $token"]);
+curl_setopt($cURL, CURLOPT_HTTPHEADER, ["Authorization: Bearer " . base64_encode($token)]);
 
 // Execute cURL
 $response = curl_exec($cURL);
@@ -46,7 +43,7 @@ curl_close($cURL);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-    <title>Install</title>
+    <title>Response</title>
     <script src="/vendor/components/jquery/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   </head>
@@ -73,9 +70,14 @@ curl_close($cURL);
       const API = new phpAPI()
       API.setAuth("BEARER","<?= $token ?>")
       $('#Run').click(function(){
-        API.get("user/list",{success:function(result,status,xhr){
-          $('#Response').text('Response: ' + JSON.stringify(result, null, 2))
-        }})
+        API.get("user/list",{
+          success:function(result,status,xhr){
+            $('#Response').text('Response: ' + JSON.stringify(result, null, 2))
+          },
+          error:function(xhr,status,error){
+            $('#Response').text('Response: ' + error)
+          },
+        })
       })
     </script>
   </body>
