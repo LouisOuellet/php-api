@@ -3,33 +3,45 @@
 //Declaring namespace
 namespace LaswitchTech\phpAPI;
 
-//Import Auth, phpSMTP and Database classes into the global namespace
-use LaswitchTech\phpDB\Database;
-use LaswitchTech\phpAUTH\Auth;
-use LaswitchTech\SMTP\phpSMTP;
+// Import phpConfigurator class into the global namespace
+use LaswitchTech\phpConfigurator\phpConfigurator;
+
+// Import phpLogger class into the global namespace
+use LaswitchTech\phpLogger\phpLogger;
+
+// Import Auth Class into the global namespace
+use LaswitchTech\phpAUTH\phpAUTH;
 
 class phpAPI {
 
-  protected $URI;
-  protected $Path;
-  protected $Settings;
-  protected $Manifest;
-  protected $Debug = false;
+	// phpLogger
+	private $Logger;
+
+  // phpConfigurator
+  private $Configurator = null;
+
+	// phpAUTH
+  private $Auth = null;
+
+  // URI
+  private $URI;
 
   public function __construct() {
 
-    // Save Root Path
-    if(!defined("ROOT_PATH")){ define("ROOT_PATH",dirname(__DIR__)); }
-    $this->Path = ROOT_PATH;
+    // Initialize Configurator
+    $this->Configurator = new phpConfigurator('api');
 
-    // Configure API
-    $this->configure();
+    // Initiate phpLogger
+    $this->Logger = new phpLogger('api');
+
+    // Initiate phpAuth
+    $this->Auth = new phpAuth();
 
     // Include all model files
-    if(is_dir($this->Path . "/Model")){
-      foreach(scandir($this->Path . "/Model/") as $model){
+    if(is_dir($this->Configurator->root() . "/Model")){
+      foreach(scandir($this->Configurator->root() . "/Model/") as $model){
         if(str_contains($model, 'Model.php')){
-          require_once $this->Path . "/Model/" . $model;
+          require_once $this->Configurator->root() . "/Model/" . $model;
         }
       }
     }
@@ -42,13 +54,15 @@ class phpAPI {
       // Identify Controller
       $strControllerName = ucfirst($this->URI[2]) . "Controller";
       $strMethodName = $this->URI[3] . 'Action';
-      if(is_file($this->Path . "/Controller/" . $strControllerName . ".php")){
+      if(is_file($this->Configurator->root() . "/Controller/" . $strControllerName . ".php")){
 
         // Load Controller
-        require $this->Path . "/Controller/" . $strControllerName . ".php";
+        require $this->Configurator->root() . "/Controller/" . $strControllerName . ".php";
 
         // Create Controller
-        $objFeedController = new $strControllerName();
+        $objFeedController = new $strControllerName($this->Auth);
+
+        // Call Method
         $objFeedController->{$strMethodName}();
       } else {
 
@@ -62,87 +76,29 @@ class phpAPI {
     }
   }
 
-  public function __call($name, $arguments) {
-    $this->sendOutput($name, array('HTTP/1.1 501 Not Implemented'));
-  }
+  private function sendOutput($data, $httpHeaders=array()) {
 
-  protected function sendOutput($data, $httpHeaders=array()) {
+    // Remove the default Set-Cookie header
     header_remove('Set-Cookie');
+
+    // Add the custom headers
     if (is_array($httpHeaders) && count($httpHeaders)) {
       foreach ($httpHeaders as $httpHeader) {
         header($httpHeader);
       }
     }
+
+    // Check if the data is an array or object
+    if(is_array($data) || is_object($data)){
+
+      // Convert the data to JSON
+      $data = json_encode($data,JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    }
+
+    // Send the output
     echo $data;
+
+    // Exit the script
     exit;
-  }
-
-  public function getPath(){
-    return $this->Path;
-  }
-
-  protected function configure(){
-
-    // Include manifest configuration file
-    if(is_file($this->Path . "/src/manifest.json")){
-
-      // Save all settings
-      $this->Manifest = json_decode(file_get_contents($this->Path . '/src/manifest.json'),true);
-
-      // MySQL Debug
-      if(isset($this->Manifest['sql']['debug'])){
-        $this->Debug = $this->Manifest['sql']['debug'];
-      }
-
-      // Auth Configuration Information
-      if(isset($this->Manifest['auth']['roles'])){
-        if(!defined("AUTH_ROLES")){ define("AUTH_ROLES", $this->Manifest['auth']['roles']); }
-      } else {
-        if(!defined("AUTH_ROLES")){ define("AUTH_ROLES", true); }
-      }
-      if(isset($this->Manifest['auth']['groups'])){
-        if(!defined("AUTH_GROUPS")){ define("AUTH_GROUPS", $this->Manifest['auth']['groups']); }
-      } else {
-        if(!defined("AUTH_GROUPS")){ define("AUTH_GROUPS", false); }
-      }
-      if(isset($this->Manifest['auth']['type']['api'])){
-        if(!defined("AUTH_F_TYPE")){ define("AUTH_F_TYPE", $this->Manifest['auth']['type']['api']); }
-      } else {
-        if(!defined("AUTH_F_TYPE")){ define("AUTH_F_TYPE", "BEARER"); }
-      }
-    } else {
-
-      // Auth Configuration Information
-      if(!defined("AUTH_ROLES")){ define("AUTH_ROLES", true); }
-      if(!defined("AUTH_GROUPS")){ define("AUTH_GROUPS", false); }
-      if(!defined("AUTH_F_TYPE")){ define("AUTH_F_TYPE", "BEARER"); }
-    }
-
-    // Include main configuration file
-    if(is_file($this->Path . "/config/config.json")){
-
-      // Save all settings
-    	$this->Settings = json_decode(file_get_contents($this->Path . '/config/config.json'),true);
-
-      //MySQL Configuration Information
-      if(isset($this->Settings['sql'])){
-        if(!defined("DB_HOST")){ define("DB_HOST", $this->Settings['sql']['host']); }
-        if(!defined("DB_USERNAME")){ define("DB_USERNAME", $this->Settings['sql']['username']); }
-        if(!defined("DB_PASSWORD")){ define("DB_PASSWORD", $this->Settings['sql']['password']); }
-        if(!defined("DB_DATABASE_NAME")){ define("DB_DATABASE_NAME", $this->Settings['sql']['database']); }
-
-        // MySQL Debug
-        if(isset($this->Settings['sql']['debug'])){
-          $this->Debug = $this->Settings['sql']['debug'];
-        }
-      }
-    } else {
-
-      // Could not find settings
-      $this->sendOutput('Could not find settings', array('HTTP/1.1 422 Unprocessable Entity'));
-    }
-
-    // MySQL Debug
-    if(!defined("DB_DEBUG")){ define("DB_DEBUG", $this->Debug); }
   }
 }

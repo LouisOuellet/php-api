@@ -22,117 +22,6 @@ This software is distributed under the [GNU General Public License v3.0](https:/
 * PHP >= 8.0
 * MySQL or MariaDB
 
-### SQL Requirements
-To support authentication in your application, you will need at least one table called users. Since phpAUTH is packed with phpDB, you can create the table like this:
-```php
-
-//Import Database class into the global namespace
-//These must be at the top of your script, not inside a function
-use LaswitchTech\phpDB\Database;
-
-//Load Composer's autoloader
-require 'vendor/autoload.php';
-
-//Initiate Database
-$phpDB = new Database("localhost","demo","demo","demo");
-
-//Create the users table
-$phpDB->create('users',[
-  'id' => [
-    'type' => 'BIGINT(10)',
-    'extra' => ['UNSIGNED','AUTO_INCREMENT','PRIMARY KEY']
-  ],
-  'username' => [
-    'type' => 'VARCHAR(60)',
-    'extra' => ['NOT NULL','UNIQUE']
-  ],
-  'password' => [
-    'type' => 'VARCHAR(100)',
-    'extra' => ['NOT NULL']
-  ],
-  'token' => [
-    'type' => 'VARCHAR(100)',
-    'extra' => ['NOT NULL','UNIQUE']
-  ]
-]);
-
-//Optionally you may want to add a type column if you want to support multiple Authentication Back-Ends like LDAP, SMTP, IMAP, etc.
-$phpDB->alter('users',[
-  'type' => [
-    'action' => 'ADD',
-    'type' => 'VARCHAR(10)',
-    'extra' => ['NOT NULL','DEFAULT "SQL"']
-  ]
-]);
-
-//Other Suggestions
-$phpDB->alter('users',[
-  'created' => [
-    'action' => 'ADD',
-    'type' => 'DATETIME',
-    'extra' => ['DEFAULT CURRENT_TIMESTAMP']
-  ],
-  'modified' => [
-    'action' => 'ADD',
-    'type' => 'DATETIME',
-    'extra' => ['DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP']
-  ]
-]);
-
-//If you enable Roles, you will need a roles table and a roles column to your users table.
-$phpDB->create('roles',[
-  'id' => [
-    'type' => 'BIGINT(10)',
-    'extra' => ['UNSIGNED','AUTO_INCREMENT','PRIMARY KEY']
-  ],
-  'name' => [
-    'type' => 'VARCHAR(60)',
-    'extra' => ['NOT NULL','UNIQUE']
-  ],
-  'permissions' => [
-    'type' => 'LONGTEXT',
-    'extra' => ['NULL']
-  ],
-  'members' => [
-    'type' => 'LONGTEXT',
-    'extra' => ['NULL']
-  ]
-]);
-
-//Optionally you may want to add a roles column if you want to quickly list roles memberships.
-
-$phpDB->alter('users',[
-  'roles' => [
-    'action' => 'ADD',
-    'type' => 'LONGTEXT',
-    'extra' => ['NULL']
-  ]
-]);
-
-//Other Suggestions
-$phpDB->alter('roles',[
-  'created' => [
-    'action' => 'ADD',
-    'type' => 'DATETIME',
-    'extra' => ['DEFAULT CURRENT_TIMESTAMP']
-  ],
-  'modified' => [
-    'action' => 'ADD',
-    'type' => 'DATETIME',
-    'extra' => ['DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP']
-  ]
-]);
-
-//Create user
-$UserID = $phpDB->insert("INSERT INTO users (username, password, token) VALUES (?,?,?)", ["user1",password_hash("pass1", PASSWORD_DEFAULT),hash("sha256", "pass1", false)]);
-
-//Create role
-$RoleID = $phpDB->insert("INSERT INTO roles (name, permissions, members) VALUES (?,?,?)", ["users",json_encode(["users/list" => 1],JSON_UNESCAPED_SLASHES),json_encode([["users" => $UserID]],JSON_UNESCAPED_SLASHES)]);
-
-//Update user
-$phpDB->update("UPDATE users SET roles = ? WHERE id = ?", [json_encode([["roles" => $RoleID]],JSON_UNESCAPED_SLASHES),$UserID]);
-```
-
 ## Security
 Please disclose any vulnerabilities found responsibly – report security issues to the maintainers privately.
 
@@ -151,7 +40,7 @@ Let's start with the skeleton of your API project directory.
 ```sh
 ├── api.php
 ├── config
-│   └── config.json
+│   └── api.cfg
 ├── Controller
 │   └── UserController.php
 └── Model
@@ -159,7 +48,7 @@ Let's start with the skeleton of your API project directory.
 ```
 
 * api.php: The api file is the entry-point of our application. It will initiate the controller being called in our application.
-* config/config.json: The config file holds the configuration information of our API. Mainly, it will hold the database credentials. But you could use it to store other configurations.
+* config/api.cfg: The config file holds the configuration information of our API. Mainly, it will hold the database credentials. But you could use it to store other configurations.
 * Controller/: This directory will contain all of your controllers.
 * Controller/UserController.php: the User controller file which holds the necessary application code to entertain REST API calls. Mainly the methods that can be called.
 * Model/: This directory will contain all of your models.
@@ -199,42 +88,63 @@ Finally, callable methods need to end with ```Action```.
 //Import BaseController class into the global namespace
 use LaswitchTech\phpAPI\BaseController;
 
-//Import Auth class into the global namespace
-use LaswitchTech\phpAUTH\Auth;
-
 class UserController extends BaseController {
 
+  public function __construct($Auth){
+
+    // Call the parent constructor
+    parent::__construct($Auth);
+
+    // Set the controller as private
+    $this->Public = true;
+    $this->Permission = true;
+    $this->Level = 1;
+  }
+
   public function listAction() {
-    $Auth = new Auth();
-    $Auth->isAuthorized("users/list");
-    $strErrorDesc = '';
-    $requestMethod = $_SERVER["REQUEST_METHOD"];
-    $arrQueryStringParams = $this->getQueryStringParams();
-    if (strtoupper($requestMethod) == 'GET') {
-      try {
-        $userModel = new UserModel();
-        $intLimit = 10;
-        if (isset($arrQueryStringParams['limit']) && $arrQueryStringParams['limit']) {
-          $intLimit = $arrQueryStringParams['limit'];
-        }
-        $arrUsers = $userModel->getUsers($intLimit);
-        $responseData = json_encode($arrUsers);
-      } catch (Error $e) {
-        $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
-        $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
+    try {
+
+      // Check the request method
+      if($this->Method !== 'GET'){
+        throw new Error('Invalid request method.');
       }
-    } else {
-      $strErrorDesc = 'Method not supported';
-      $strErrorHeader = 'HTTP/1.1 422 Unprocessable Entity';
-    }
-    if (!$strErrorDesc) {
-      $this->sendOutput(
-        $responseData,
+
+      // Initialize the user model
+      $UserModel = new UserModel();
+
+      // Configure default limit
+      $Limit = 25;
+
+      // Check if the limit is set
+      if($this->getQueryStringParams('limit')){
+        $Limit = intval($this->getQueryStringParams('limit'));
+      }
+
+      // Get the users
+      $Users = $UserModel->getUsers($Limit);
+
+      // Check if the users were found
+      if(count($Users) <= 0){
+        throw new Error('Users not found.');
+      }
+      
+      // Send the output
+      $this->output(
+        $Users,
         array('Content-Type: application/json', 'HTTP/1.1 200 OK')
       );
-    } else {
-      $this->sendOutput(json_encode(array('error' => $strErrorDesc)),
-        array('Content-Type: application/json', $strErrorHeader)
+    } catch (Error $e) {
+
+      // Set the error
+      $this->Error = $e->getMessage();
+
+      // Log the error
+      $this->Logger->error($e->getMessage());
+
+      // Send the output
+      $this->output(
+        array('error' => $this->Error . ' - Something went wrong! Please contact support.'),
+        array('Content-Type: application/json', 'HTTP/1.1 500 Internal Server Error'),
       );
     }
   }
@@ -250,7 +160,7 @@ The config file holds the configuration information of our API. Mainly, it will 
 {
     "sql": {
         "host": "localhost",
-        "database": "demo",
+        "database": "demo3",
         "username": "demo",
         "password": "demo"
     }
@@ -263,76 +173,122 @@ The api file is the entry-point of our application. It will initiate the control
 #### Example
 
 ```php
+// Initiate Session
+session_start();
 
-//Import API class into the global namespace
-//These must be at the top of your script, not inside a function
+// These must be at the top of your script, not inside a function
 use LaswitchTech\phpAPI\phpAPI;
 
-//Load Composer's autoloader
+// Load Composer's autoloader
 require 'vendor/autoload.php';
 
+// Initiate phpAPI
 new phpAPI();
 ```
 
 ### Calling the API
 Once you have setup your first controller and model, you can start calling your api.
 
-#### Example
-
-##### GET
-```sh
-GET /api.php/user/list?limit=2 HTTP/1.1
-Authorization: Bearer cGFzczE=
-Host: phpapi.local
-User-Agent: HTTPie
-```
-
-##### Output
-```json
-[
-  {
-    "id": 1,
-    "username": "user1",
-    "email": "user1@domain.com",
-    "status": 0
-  },
-  {
-    "id": 2,
-    "username": "user2",
-    "email": "user2@domain.com",
-    "status": 1
-  },
-  {
-    "id": 3,
-    "username": "user3",
-    "email": "user3@domain.com",
-    "status": 1
-  },
-  {
-    "id": 4,
-    "username": "user4",
-    "email": "user4@domain.com",
-    "status": 0
-  }
-]
-```
-
 ### JavaScript Implementation
 phpAPI comes packed with a JavaScript implementation. The class is available in /vendor/laswitchtech/php-api/dist/js/phpAPI.js.
 
-#### Example
-```html
-<!doctype html>
-<html>
-  <body>
-    <div></div>
-    <script src="/vendor/components/jquery/jquery.min.js"></script>
-    <script src="/vendor/laswitchtech/php-api/dist/js/phpAPI.js"></script>
-    <script>
-      const API = new phpAPI()
-      API.setAuth("BEARER","pass1")
-      API.get("user/list",{success:function(result,status,xhr){ $('div').html(JSON.stringify(result)); }})
-    </script>
-  </body>
-</html>
+### Examples
+For more example, look into the [example](example) folder.
+
+### Installer Example
+```php
+// Initiate Session
+session_start();
+
+// These must be at the top of your script, not inside a function
+use LaswitchTech\phpLogger\phpLogger;
+use LaswitchTech\phpSMS\phpSMS;
+use LaswitchTech\SMTP\phpSMTP;
+use LaswitchTech\phpDB\Database;
+use LaswitchTech\phpAUTH\phpAUTH;
+
+// Load Composer's autoloader
+require 'vendor/autoload.php';
+
+// Initiate phpLogger
+$phpLogger = new phpLogger();
+
+// Configure phpLogger
+$phpLogger->config("level",0); // Set Logging Level
+
+// Initiate phpSMS
+$phpSMS = new phpSMS();
+
+// Configure phpSMS
+$phpSMS->config('provider','twilio')
+       ->config('sid', 'your_account_sid')
+       ->config('token', 'your_auth_token')
+       ->config('phone', 'your_twilio_phone_number');
+
+// Initiate phpDB
+$phpDB = new Database();
+
+// Configure phpDB
+$phpDB->config("host","localhost")
+      ->config("username","demo")
+      ->config("password","demo")
+      ->config("database","demo3");
+
+// Initiate phpSMTP
+$phpSMTP = new phpSMTP();
+
+// Configure phpSMTP
+$phpSMTP->config("username","username@domain.com")
+        ->config("password","*******************")
+        ->config("host","smtp.domain.com")
+        ->config("port",465)
+        ->config("encryption","ssl");
+
+// Construct Hostnames
+$Hostnames = ["localhost","::1","127.0.0.1"];
+if(isset($_SERVER['SERVER_NAME']) && !in_array($_SERVER['SERVER_NAME'],$Hostnames)){
+  $Hostnames[] = $_SERVER['SERVER_NAME'];
+}
+if(isset($_SERVER['HTTP_HOST']) && !in_array($_SERVER['HTTP_HOST'],$Hostnames)){
+  $Hostnames[] = $_SERVER['HTTP_HOST'];
+}
+
+// Initiate phpAUTH
+$phpAUTH = new phpAUTH();
+
+// Configure phpAUTH
+$phpAUTH->config("hostnames",$Hostnames)
+        ->config("basic",false) // Enable/Disable Basic Authentication
+        ->config("bearer",true) // Enable/Disable Bearer Token Authentication
+        ->config("request",true) // Enable/Disable Request Authentication
+        ->config("cookie",true) // Enable/Disable Cookie Authentication
+        ->config("session",true) // Enable/Disable Session Authentication
+        ->config("2fa",false) // Enable/Disable 2-Factor Authentication
+        ->config("maxAttempts",5) // Max amount of authentication attempts per windowAttempts
+        ->config("maxRequests",1000) // Max amount of API request per windowRequests
+        ->config("lockoutDuration",1800) // 30 mins
+        ->config("windowAttempts",100) // 100 seconds
+        ->config("windowRequests",60) // 60 seconds
+        ->config("window2FA",60) // 60 seconds
+        ->config("windowVerification",2592000) // 30 Days
+        ->init();
+
+// Install phpAUTH
+$Installer = $phpAUTH->install();
+
+// Create a User
+$User = $Installer->create("api",["username" => "username@domain.com"]);
+
+// Activate User
+$User->activate();
+
+// Verify User
+$User->verify();
+
+// Initiate phpConfigurator
+$Configurator = new phpConfigurator('account');
+
+// Save Account for Testing
+$Configurator->set('account','url',"https://{$Hostname}/api.php")
+             ->set('account','token',$User->get('username').":".$User->getToken());
 ```

@@ -11,10 +11,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "*",
-        "composer/composer": "^2.5",
         "components/jquery": "^3.6",
-        "laswitchtech/php-auth": "^2.3"
+        "laswitchtech/php-auth": "^3.0"
     },
     "autoload": {
         "psr-4": {
