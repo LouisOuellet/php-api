@@ -9,7 +9,6 @@ composer.phar
 /log/
 /Controller/
 /Model/
-/src/manifest.json
 *.log
 *.cfg
 
