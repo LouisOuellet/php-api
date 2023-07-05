@@ -1,16 +1,22 @@
 composer.phar
 *composer.phar
 .DS_Store
+.git
 *.DS_Store
 /vendor/
 /tmp/
 /data/
 /config/
 /log/
-/Controller/
-/Model/
 *.log
 *.cfg
+/Controller/
+/Model/
+/example/Controller
+/example/dist
+/example/log
+/example/Model
+/example/vendor
 
 # Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
