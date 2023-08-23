@@ -32,7 +32,7 @@ class BaseController {
   protected $POST = null;
   protected $REQUEST = null;
 
-  public function __construct($Auth){
+  public function __construct($Auth = null){
 
     // Initiate phpAuth
     $this->Auth = $Auth;
