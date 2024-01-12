@@ -63,17 +63,6 @@ class phpAPI {
       configurations[key] = value;
     }
 
-    // Check for cached data
-    let cacheKey = this.generateCacheKey(url, data);
-    if (configurations.cache) {
-      const cachedData = this.getCache(cacheKey);
-      if (cachedData) {
-        // Call success callback with cached data
-        if (config && config.success) config.success(cachedData);
-        return self;
-      }
-    }
-
     // Prepare request
     if(url != null && typeof url === 'string'){ configurations.url = configurations.url+'/'+url; }
     if(data != null && typeof data === 'object'){
@@ -86,6 +75,7 @@ class phpAPI {
       for(const [key, value] of Object.entries(config)){
         if(typeof configurations[key] !== 'undefined'){
           switch(key){
+            case"cache":
             case"beforeSend":
             case"complete":
             case"error":
@@ -94,6 +84,17 @@ class phpAPI {
               break;
           }
         }
+      }
+    }
+
+    // Check for cached data
+    let cacheKey = this.generateCacheKey(url, data);
+    if (configurations.cache) {
+      const cachedData = this.getCache(cacheKey);
+      if (cachedData) {
+        // Call success callback with cached data
+        if (config && config.success) config.success(cachedData);
+        return self;
       }
     }
 
@@ -120,17 +121,6 @@ class phpAPI {
       configurations[key] = value;
     }
 
-    // Check for cached data
-    let cacheKey = this.generateCacheKey(url, data);
-    if (configurations.cache) {
-      const cachedData = this.getCache(cacheKey);
-      if (cachedData) {
-        // Call success callback with cached data
-        if (config && config.success) config.success(cachedData);
-        return self;
-      }
-    }
-
     // Prepare request
     if(url != null && typeof url === 'string'){ configurations.url = configurations.url+'/'+url; }
     if(data != null && typeof data === 'object'){
@@ -145,6 +135,7 @@ class phpAPI {
     if(config != null && typeof config === 'object'){
       for(const [key, value] of Object.entries(config)){
         switch(key){
+          case"cache":
           case"beforeSend":
           case"complete":
           case"error":
@@ -152,6 +143,17 @@ class phpAPI {
             configurations[key] = value;
             break;
         }
+      }
+    }
+
+    // Check for cached data
+    let cacheKey = this.generateCacheKey(url, data);
+    if (configurations.cache) {
+      const cachedData = this.getCache(cacheKey);
+      if (cachedData) {
+        // Call success callback with cached data
+        if (config && config.success) config.success(cachedData);
+        return self;
       }
     }
     
