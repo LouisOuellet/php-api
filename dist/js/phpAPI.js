@@ -192,4 +192,8 @@ class phpAPI {
   clearCache(key) {
     localStorage.removeItem(key);
   }
+
+  generateCacheKey(url, data) {
+    return `cache_${url}_${JSON.stringify(data)}`;
+  }
 }
