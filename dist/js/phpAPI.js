@@ -8,6 +8,8 @@ class phpAPI {
       "url": "/api.php",
       "dataType": "json",
       "context": self,
+      "expiration": 3600,
+      "cache": false,
       "beforeSend": function(xhr){},
       "complete": function(xhr,status){},
       "error": function(xhr,status,error){},
@@ -60,6 +62,19 @@ class phpAPI {
     for(const [key, value] of Object.entries(self.#configurations)){
       configurations[key] = value;
     }
+
+    // Check for cached data
+    let cacheKey = this.generateCacheKey(url, data);
+    if (configurations.cache) {
+      const cachedData = this.getCache(cacheKey);
+      if (cachedData) {
+        // Call success callback with cached data
+        if (config && config.success) config.success(cachedData);
+        return self;
+      }
+    }
+
+    // Prepare request
     if(url != null && typeof url === 'string'){ configurations.url = configurations.url+'/'+url; }
     if(data != null && typeof data === 'object'){
       if(typeof data.beforeSend === 'undefined' && typeof data.complete === 'undefined' && typeof data.error === 'undefined' && typeof data.success === 'undefined'){
@@ -81,7 +96,20 @@ class phpAPI {
         }
       }
     }
+
+    // Set cache after successful ajax call
+    const originalSuccess = configurations.success;
+    configurations.success = function(result, status, xhr) {
+      if (configurations.cache) {
+        self.setCache(cacheKey, result);
+      }
+      if (originalSuccess) originalSuccess(result, status, xhr);
+    }
+
+    // Make request
     $.ajax(configurations)
+
+    // Return
     return self
   }
 
@@ -91,6 +119,19 @@ class phpAPI {
     for(const [key, value] of Object.entries(self.#configurations)){
       configurations[key] = value;
     }
+
+    // Check for cached data
+    let cacheKey = this.generateCacheKey(url, data);
+    if (configurations.cache) {
+      const cachedData = this.getCache(cacheKey);
+      if (cachedData) {
+        // Call success callback with cached data
+        if (config && config.success) config.success(cachedData);
+        return self;
+      }
+    }
+
+    // Prepare request
     if(url != null && typeof url === 'string'){ configurations.url = configurations.url+'/'+url; }
     if(data != null && typeof data === 'object'){
       if(typeof data.beforeSend === 'undefined' && typeof data.complete === 'undefined' && typeof data.error === 'undefined' && typeof data.success === 'undefined'){
@@ -113,7 +154,42 @@ class phpAPI {
         }
       }
     }
+    
+    // Set cache after successful ajax call
+    const originalSuccess = configurations.success;
+    configurations.success = function(result, status, xhr) {
+      if (configurations.cache) {
+        self.setCache(cacheKey, result);
+      }
+      if (originalSuccess) originalSuccess(result, status, xhr);
+    }
+
+    // Make request
     $.ajax(configurations)
+
+    // Return
     return self
+  }
+
+  getCache(key) {
+    const cached = JSON.parse(localStorage.getItem(key));
+    if (!cached) return null;
+    if ((new Date().getTime() - cached.timestamp) / 1000 > this.#configurations.expiration) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return cached.data;
+  }
+
+  setCache(key, data) {
+    const cacheData = {
+      data: data,
+      timestamp: new Date().getTime()
+    };
+    localStorage.setItem(key, JSON.stringify(cacheData));
+  }
+
+  clearCache(key) {
+    localStorage.removeItem(key);
   }
 }
