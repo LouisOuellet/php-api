@@ -163,7 +163,7 @@ class BaseController {
       foreach($_GET as $arrayKey => $arrayValue){
 
         // Add the decoded data to the GET array
-        $this->GET[$arrayKey] = base64_decode(urldecode($arrayValue));
+        $this->GET[$arrayKey] = urldecode(base64_decode($arrayValue));
       }
     }
 
@@ -198,7 +198,7 @@ class BaseController {
       foreach($_POST as $arrayKey => $arrayValue){
 
         // Add the decoded data to the POST array
-        $this->POST[$arrayKey] = base64_decode(urldecode($arrayValue));
+        $this->POST[$arrayKey] = urldecode(base64_decode($arrayValue));
       }
     }
 
@@ -233,7 +233,7 @@ class BaseController {
       foreach($_REQUEST as $arrayKey => $arrayValue){
 
         // Add the decoded data to the REQUEST array
-        $this->REQUEST[$arrayKey] = base64_decode(urldecode($arrayValue));
+        $this->REQUEST[$arrayKey] = urldecode(base64_decode($arrayValue));
       }
     }
 
