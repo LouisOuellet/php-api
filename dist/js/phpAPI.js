@@ -135,6 +135,9 @@ class phpAPI {
           }
           configurations.data[key] = encodeURI(btoa(value))
         }
+        if(typeof CSRF_TOKEN === 'string'){
+          configurations.data.csrf = CSRF_TOKEN;
+        }
       } else { config = data; }
     }
     configurations.type = "POST"
