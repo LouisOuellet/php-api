@@ -129,7 +129,10 @@ class phpAPI {
     if(data != null && typeof data === 'object'){
       if(typeof data.beforeSend === 'undefined' && typeof data.complete === 'undefined' && typeof data.error === 'undefined' && typeof data.success === 'undefined'){
         configurations.data = {};
-        for(const [key, value] of Object.entries(data)){
+        for(var [key, value] of Object.entries(data)){
+          if(typeof value === 'object'){
+            value = JSON.stringify(value);
+          }
           configurations.data[key] = encodeURI(btoa(value))
         }
       } else { config = data; }
