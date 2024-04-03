@@ -10,6 +10,9 @@ class phpAPI {
       "context": self,
       "expiration": 3600,
       "cache": false,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+      },
       "beforeSend": function(xhr){},
       "complete": function(xhr,status){},
       "error": function(xhr,status,error){},
@@ -40,7 +43,6 @@ class phpAPI {
         case"BEARER":
           if(username != null && typeof username === 'string'){
             self.#configurations.headers = {
-              'Content-Type': 'application/x-www-form-urlencoded',
               'Authorization': 'Bearer '+btoa(username)
             }
           }
