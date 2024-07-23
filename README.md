@@ -1,6 +1,6 @@
 ![GitHub repo logo](/dist/img/logo.png)
 
-# phpAPI
+# phpAPI - [DEPRECATED] - Use [coreAPI](https://github.com/LaswitchTech/coreAPI) instead
 ![License](https://img.shields.io/github/license/LouisOuellet/php-api?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/LouisOuellet/php-api?style=for-the-badge&logo=github)
 ![GitHub top language](https://img.shields.io/github/languages/top/LouisOuellet/php-api?style=for-the-badge)
@@ -131,7 +131,7 @@ class UserController extends BaseController {
       if(count($Users) <= 0){
         throw new Error('Users not found.');
       }
-      
+
       // Send the output
       $this->output(
         $Users,
